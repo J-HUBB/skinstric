@@ -44,11 +44,23 @@
     @apply absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-1/2 w-[480px] h-[480px] md:w-[762px] md:h-[762px] {/*animate-spin-slow rotate-190*/};
   }
 
+  .diamondLarge2 {
+    @apply absolute w-[270px] h-[270px] md:w-[482px] md:h-[482px];
+  }
+
   .diamondMedium {
     @apply absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-1/2 w-[400px] h-[400px] md:w-[682px] md:h-[682px] /*animate-spin-slower rotate-185*/;
   }
 
+  .diamondMedium2 {
+    @apply absolute w-[230px] h-[230px] md:w-[444.34px] md:h-[444.34px];
+  }
+
   .diamondSmall {
     @apply absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-1/2 w-[320px] h-[320px] md:w-[602px] md:h-[602px];
+  }
+
+  .diamondSmall2 {
+    @apply absolute w-[190px] h-[190px] md:w-[405.18px] md:h-[405.18px];
   }
 }

@@ -6,10 +6,10 @@ import Header from "./components/Header";
 import Link from "next/link";
 
 export default function Home() {
-  const container = useRef();
+  const container = useRef<HTMLDivElement>(null);
 
-  const leftHoverTL = useRef();
-  const rightHoverTL = useRef();
+  const leftHoverTL = useRef<gsap.core.Timeline | null>(null);
+  const rightHoverTL = useRef<gsap.core.Timeline | null>(null);
 
   useGSAP(
     () => {
@@ -36,9 +36,9 @@ export default function Home() {
 
   const handleHover = (side: string, entering: boolean) => {
     if (side === 'left') {
-      entering ? leftHoverTL.current.play() : leftHoverTL.current.reverse();
+      entering ? leftHoverTL.current?.play() : leftHoverTL.current?.reverse();
     } else {
-      entering ? rightHoverTL.current.play() : rightHoverTL.current.reverse();
+      entering ? rightHoverTL.current?.play() : rightHoverTL.current?.reverse();
     }
   };
 

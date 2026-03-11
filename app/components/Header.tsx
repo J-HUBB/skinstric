@@ -12,19 +12,19 @@ const header = () => {
           SKINSTRIC
         </Link>
         <Image
-          src="/images/Rectangle 2710.png"
+          src="/images/leftBracket.png"
           alt="Left Bracket"
           width={4}
           height={17}
-          style={{ height: 'auto' }}
+          style={{ width: 'auto' }}
         />
         <p className="text-[#1a1b1c83] text-opacity-70  font-semibold text-sm ml-1.5 mr-1.5">INTRO</p>
         <Image
-          src="/images/Rectangle 2711.png"
+          src="/images/rightBracket.png"
           alt="Right Bracket"
           width={4}
           height={17}
-          style={{ height: 'auto' }}
+          style={{ width: 'auto' }}
         />
       </div>
       <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold  transition-colors  disabled:pointer-events-none text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 mx-4 scale-[0.8] text-[#FCFCFC] text-[10px] bg-[#1A1B1C] leading-[16px]">
