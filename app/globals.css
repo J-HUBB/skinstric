@@ -31,6 +31,10 @@
     @apply text-center;
   }
 
+  .skinCare {
+    @apply block text-[#1A1B1C]
+  }
+
   /* This matches the 'Rectangle 2779' dashed lines in your Figma */
   .dotted-boxLeft {
     @apply w-full h-full border border-dotted border-[#A0A4AB] rotate-45 fixed inset-0;
@@ -41,7 +45,9 @@
   }
 
   .diamondLarge {
-    @apply absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-1/2 w-[480px] h-[480px] md:w-[762px] md:h-[762px] {/*animate-spin-slow rotate-190*/};
+    @apply absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-1/2 w-[480px] h-[480px] md:w-[762px] md:h-[762px] {
+      /*animate-spin-slow rotate-190*/
+    }
   }
 
   .diamondLarge2 {
@@ -63,4 +69,5 @@
   .diamondSmall2 {
     @apply absolute w-[190px] h-[190px] md:w-[405.18px] md:h-[405.18px];
   }
+
 }

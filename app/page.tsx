@@ -22,11 +22,13 @@ export default function Home() {
 
       leftHoverTL.current = gsap.timeline({ paused: true })
       .to(".hero-headline", { x: 330, duration: 0.4, ease: "power1.inOut"})
+      .to(".skinCare", { x: 100, duration: 0.2, ease: "power1.inOut"}, "<")
       .to("#take-test-button", { opacity: 0, scale: 0.9, duration: 0.3 }, "<")
       .to(".dotted-boxRight", { opacity: 0, duration: 0.3 }, "<");
 
       rightHoverTL.current = gsap.timeline({ paused: true })
       .to(".hero-headline", { x: -330, duration: 0.4, ease: "power1.inOut"})
+      .to(".skinCare", { x: -100, duration: 0.2, ease: "power1.inOut"}, "<")
       .to("#discover-button", { opacity: 0, scale: 0.9, duration: 0.3 }, "<")
       .to(".dotted-boxLeft", { opacity: 0, duration: 0.3 }, "<");
     },
@@ -69,7 +71,7 @@ export default function Home() {
           >
             Sophisticated <br />{" "}
             <span
-              className="block text-[#1A1B1C]"
+              className="skinCare"
               style={{
                 translate: "none",
                 rotate: "none",
