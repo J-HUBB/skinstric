@@ -47,19 +47,25 @@ const Summary = () => {
         // Helper function to find the key with the highest value in an object
         const transformGroup = (
           groupObj: Record<string, number>,
+          groupName: string,
         ): DataItem[] => {
-          return Object.entries(groupObj)
+          const transformed = Object.entries(groupObj)
             .map(([label, decimal]) => ({
               label: label.charAt(0).toUpperCase() + label.slice(1),
               confidence: (decimal as number) * 100,
             }))
             .sort((a, b) => b.confidence - a.confidence);
+          // NEW: This prints a beautiful table in your console
+          console.log(`📊 Transformed Data for: ${groupName.toUpperCase()}`);
+          console.table(transformed);
+
+          return transformed;
         };
 
         const finalData: TransformedData = {
-          age: transformGroup(apiData.age),
-          gender: transformGroup(apiData.gender),
-          race: transformGroup(apiData.race),
+          age: transformGroup(apiData.age, "age"),
+          gender: transformGroup(apiData.gender, "gender"),
+          race: transformGroup(apiData.race, "race"),
         };
 
         // --- LOG 2: See the cleaned data before we set it to state ---
@@ -71,7 +77,7 @@ const Summary = () => {
         setSelectedItems({
           race: finalData.race[0],
           age: finalData.age[0],
-          gender: finalData.gender[0],
+          gender: finalData.gender[1],
         });
       } catch (error) {
         console.error("Failed to parse A.I. data", error);
@@ -133,8 +139,7 @@ const Summary = () => {
               <div className="bg-white-100 space-y-3 md:flex md:flex-col h-[62%]">
                 {/* Race Box */}
                 <div
-                  onClick={() => 
-                    setActiveCategory("race")}
+                  onClick={() => setActiveCategory("race")}
                   className={`p-3 cursor-pointer flex-1 flex flex-col justify-between border-t transition-colors ${activeCategory === "race" ? "bg-[#1A1B1C] text-white" : "bg-[#F3F3F4] hover:bg-[#E1E1E2]"}`}
                 >
                   <p className="text-base font-semibold">
@@ -145,8 +150,7 @@ const Summary = () => {
 
                 {/* Age Box */}
                 <div
-                  onClick={() => 
-                    setActiveCategory("age")}
+                  onClick={() => setActiveCategory("age")}
                   className={`p-3 cursor-pointer flex-1 flex flex-col justify-between border-t transition-colors ${activeCategory === "age" ? "bg-[#1A1B1C] text-white" : "bg-[#F3F3F4] hover:bg-[#E1E1E2]"}`}
                 >
                   <p className="text-base font-semibold">
@@ -157,8 +161,7 @@ const Summary = () => {
 
                 {/* Sex Box */}
                 <div
-                  onClick={() => 
-                    setActiveCategory("gender")}
+                  onClick={() => setActiveCategory("gender")}
                   className={`p-3 cursor-pointer flex-1 flex flex-col justify-between border-t transition-colors ${activeCategory === "gender" ? "bg-[#1A1B1C] text-white" : "bg-[#F3F3F4] hover:bg-[#E1E1E2]"}`}
                 >
                   <p className="text-base font-semibold">
@@ -172,7 +175,11 @@ const Summary = () => {
               <div className="relative bg-gray-100 p-4 flex flex-col items-center justify-center md:h-[57vh] md:border-t">
                 <p className="hidden md:block md:absolute text-[40px] mb-2 left-5 top-2">
                   {activeItem?.label}
-                  {activeCategory === "age" && (<span className="ml-2 text-2xl font-light lowercase">years-old</span>)}
+                  {activeCategory === "age" && (
+                    <span className="ml-2 text-2xl font-light lowercase">
+                      years-old
+                    </span>
+                  )}
                 </p>
                 <div className="relative md:absolute w-full max-w-[384px] aspect-square mb-4 md:right-5 md:bottom-2">
                   <div
@@ -242,8 +249,8 @@ const Summary = () => {
               <div className="bg-gray-100 pt-4 pb-4 md:border-t">
                 <div className="space-y-0">
                   <div className="flex justify-between px-4">
-                    <h4 className="text-base leading-[24px] tracking-tight font-medium mb-2">
-                      {activeCategory}
+                    <h4 className="text-base leading-[24px] tracking-tight font-medium mb-2 capitalize">
+                      {activeCategory === "gender" ? "sex" : activeCategory}
                     </h4>
                     <h4 className="text-base leading-[24px] tracking-tight font-medium mb-2">
                       A.I. CONFIDENCE
@@ -257,7 +264,12 @@ const Summary = () => {
                     return (
                       <div
                         key={Item.label} // The map handles the repetition, this is the only div you need!
-                        onClick={() => setSelectedItems(prev => ({ ...prev, [activeCategory]: Item }))}
+                        onClick={() =>
+                          setSelectedItems((prev) => ({
+                            ...prev,
+                            [activeCategory]: Item,
+                          }))
+                        }
                         className={`flex items-center justify-between h-[48px] px-4 cursor-pointer transition-colors duration-200 
                             ${isActive ? "bg-[#1A1B1C] text-white hover:bg-black" : "hover:bg-[#E1E1E2] text-[#1A1B1C]"}`}
                       >
