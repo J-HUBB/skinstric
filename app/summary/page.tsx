@@ -169,7 +169,7 @@ useGSAP(() => {
   if (isLoading) {
     return (
       <main
-        className="min-h-screen bg-white flex flex-col items-center justify-center relative overflow-hidden"
+        className="min-h-screen flex flex-col md:mt-5"
       >
         <Header />
         <div className="relative flex flex-col items-center justify-center translate-y-[-10%]">
