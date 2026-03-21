@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import Link from "next/link";
 
 const formSchema = z.object({
   name: z
@@ -121,11 +122,6 @@ const testing = () => {
           <p className="font-semibold text-xs">TO START ANALYSIS</p>
         </div>
 
-        {/* {isSubmitting && (
-          <p className="absolute z-50 text-2xl font-bold animate-pulse">
-            Processing...
-          </p>
-        )} */}
 
         <div className="relative flex flex-col items-center justify-center mb-40 w-full h-full">
           {/* Status Message */}
@@ -137,10 +133,6 @@ const testing = () => {
                 : "Click to type"}
           </p>
 
-          {/* <div className="relative flex flex-col items-center justify-center mb-40 w-full h-full">
-          <p className="text-sm text-gray-400 tracking-wider uppercase mb-1">
-            CLICK TO TYPE
-          </p> */}
 
           {!isComplete && (
             <form className="relative z-10" onSubmit={handleSubmit(onSubmit)}>
@@ -158,9 +150,6 @@ const testing = () => {
                   {errors.name && (
                     <span className="text-red-500">{errors.name.message}</span>
                   )}
-                  {/* <button type="submit" className="sr-only">
-                  (Enter)
-                </button> */}
                 </div>
               )}
 
@@ -218,7 +207,7 @@ const testing = () => {
           />
         </div>
         <div className="absolute bottom-38.5 md:bottom-8 w-full flex justify-between md:px-9 px-13">
-          <a className="inset-0" aria-label="Back" href="/">
+          <Link className="inset-0" aria-label="Back" href="/">
             <div>
               <div className="relative w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
                 <span className="rotate-[-45deg] text-xs font-semibold sm:hidden">
@@ -235,23 +224,14 @@ const testing = () => {
                 </span>
               </div>
             </div>
-          </a>
-          <a
+          </Link>
+          <Link
             ref={proceedLinkRef}
             className="invisible group flex flex-row relative justify-center items-center pointer-events-none"
-            href="/result"
+            href="/results"
           >
             <div
               className="relative"
-              // style={{
-              //   position: "relative",
-              //   translate: "none",
-              //   rotate: "none",
-              //   scale: "none",
-              //   visibility: "visible",
-              //   opacity: "1",
-              //   transform: "translate(0px, 0%)",
-              // }}
             >
               <div>
                 {/* Mobile */}
@@ -272,7 +252,7 @@ const testing = () => {
                 </div>
               </div>
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     </main>
