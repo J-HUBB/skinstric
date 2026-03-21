@@ -31,6 +31,7 @@ const Summary = () => {
   }>({ race: null, age: null, gender: null });
   const activeItem = selectedItems[activeCategory];
   const progressRef = useRef<SVGPathElement | null>(null);
+  const percentageRef = useRef<HTMLSpanElement | null>(null);
 
   // 2. Fetch data from localStorage on component mount
   useEffect(() => {
@@ -116,18 +117,54 @@ const Summary = () => {
     }
   }, [confidenceScore]); // Re-runs whenever the score changes
 
-  useGSAP(() => {
-  if (!isLoading) {
-    // Target the header, the columns, and the footer links
-    gsap.from("main > div, header, .grid > div", {
-      opacity: 0,
-      y: 20,
-      duration: 1,
-      stagger: 0.1, // This creates the "wave" effect
-      ease: "power3.out",
-    });
-  }
-}, [isLoading]); // Trigger this specifically when isLoading changes to false
+useGSAP(() => {
+    if (!isLoading && activeItem) {
+      const tl = gsap.timeline();
+
+      // 1. Fade in the main containers and text
+      tl.from("header, .text-start, .grid > div, .mt-auto", {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+      });
+
+      // 2. Scale the Progress Circle specifically (lines 244-301 context)
+      // This targets the SVG and makes it "pop" into view
+      tl.from(".CircularProgressbar", {
+        scale: 0.6,
+        opacity: 0,
+        duration: 1,
+        ease: "back.out(1.7)",
+      }, "-=0.6"); // Starts slightly before the previous animation finishes
+
+      // 3. The Path Animation 
+      tl.fromTo(progressRef.current, 
+        { strokeDashoffset: CIRCUMFERENCE }, // Start empty
+        { 
+          strokeDashoffset: strokeDashoffset, // End at calculated value
+          duration: 1.5, 
+          ease: "power2.inOut" 
+        }, 
+        "-=0.8"
+      );
+
+      // 4. Percentage Counter Animation
+      const stats = { value: 0 };
+      tl.to(stats, {
+        value: confidenceScore,
+        duration: 1.5,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          if (percentageRef.current) {
+            percentageRef.current.innerHTML = Math.round(stats.value).toString();
+          }
+        }
+      }, "-=1.5");
+
+    }
+  }, [isLoading]);
 
   if (isLoading) {
     return (
@@ -293,7 +330,7 @@ const Summary = () => {
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <p className="text-3xl md:text-[40px] font-normal">
-                        {Math.round(confidenceScore)}
+                       <span ref={percentageRef}>{Math.round(confidenceScore)}</span>
                         <span className="text-xl md:text-3xl">%</span>
                       </p>
                     </div>
