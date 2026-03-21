@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface DataItem {
   label: string;
@@ -77,7 +78,7 @@ const Summary = () => {
         setSelectedItems({
           race: finalData.race[0],
           age: finalData.age[0],
-          gender: finalData.gender[1],
+          gender: finalData.gender[0],
         });
       } catch (error) {
         console.error("Failed to parse A.I. data", error);
@@ -86,7 +87,13 @@ const Summary = () => {
       console.log("⚠️ No A.I. data found in localStorage");
     }
 
+    const timer = setTimeout(() => {
     setIsLoading(false);
+    }, 2500);
+
+    // Clean up the timer if the component unmounts
+    return () => clearTimeout(timer);
+
   }, []);
 
   // --- LOG 3: See what is currently in React State every time the component renders ---
@@ -109,11 +116,64 @@ const Summary = () => {
     }
   }, [confidenceScore]); // Re-runs whenever the score changes
 
+  useGSAP(() => {
+  if (!isLoading) {
+    // Target the header, the columns, and the footer links
+    gsap.from("main > div, header, .grid > div", {
+      opacity: 0,
+      y: 20,
+      duration: 1,
+      stagger: 0.1, // This creates the "wave" effect
+      ease: "power3.out",
+    });
+  }
+}, [isLoading]); // Trigger this specifically when isLoading changes to false
+
   if (isLoading) {
     return (
-      <div className="h-screen flex items-center justify-center">
-        Loading...
-      </div>
+      <main
+        className="min-h-screen bg-white flex flex-col items-center justify-center relative overflow-hidden"
+      >
+        <Header />
+        <div className="relative flex flex-col items-center justify-center translate-y-[-10%]">
+          <div className="w-[270px] h-[270px] md:w-[482px] md:h-[482px]"></div>
+          <Image
+            alt="Diamond Large"
+            width="482"
+            height="482"
+            className="diamondLarge2 absolute"
+            src="/images/largeRectangle.png"
+          />
+          <Image
+            alt="Diamond Medium"
+            width="444"
+            height="444"
+            className="diamondMedium2 absolute"
+            src="/images/mediumRectangle.png"
+          />
+          <Image
+            alt="Diamond Small"
+            width="405"
+            height="405"
+            className="diamondSmall2 absolute"
+            src="/images/smallRectangle.png"
+          />
+
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            {/* Added animate-pulse here */}
+            <Image
+              alt="Camera Icon"
+              width="136"
+              height="136"
+              className="w-[100px] h-[100px] md:w-[136px] md:h-[136px] animate-pulse"
+              src="/images/camera-icon.png"
+            />
+            <p className="text-xs md:text-sm font-semibold mt-8 tracking-widest text-[#1A1B1C] animate-pulse">
+              A.I. CAMERA IS FINALIZING...
+            </p>
+          </div>
+        </div>
+      </main>
     );
   }
 

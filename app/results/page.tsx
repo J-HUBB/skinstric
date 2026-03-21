@@ -168,7 +168,6 @@ const Results = () => {
 
         // 5. Next Step: Change the view to show the user their photo!
         setView("review");
-
       }
     }
   };
@@ -217,7 +216,7 @@ const Results = () => {
 
       // Success! Here you will transition to your final results page.
       //   setView("results");
-      router.push("/summary");
+      router.push("/select");
     } catch (error) {
       console.error("Error uploading image:", error);
       alert("There was an issue analyzing your photo. Please try again.");
@@ -230,52 +229,52 @@ const Results = () => {
   // VIEW: LOADING SCREEN
   // ==========================================
   if (view === "loading") {
-    return (
-      <main
-        ref={container}
-        className="min-h-screen bg-white flex flex-col items-center justify-center relative overflow-hidden"
-      >
-        <Header />
-        <div className="relative flex flex-col items-center justify-center translate-y-[-10%]">
-          <div className="w-[270px] h-[270px] md:w-[482px] md:h-[482px]"></div>
-          <Image
-            alt="Diamond Large"
-            width="482"
-            height="482"
-            className="diamondLarge2 absolute"
-            src="/images/largeRectangle.png"
-          />
-          <Image
-            alt="Diamond Medium"
-            width="444"
-            height="444"
-            className="diamondMedium2 absolute"
-            src="/images/mediumRectangle.png"
-          />
-          <Image
-            alt="Diamond Small"
-            width="405"
-            height="405"
-            className="diamondSmall2 absolute"
-            src="/images/smallRectangle.png"
-          />
-
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            {/* Added animate-pulse here */}
+      return (
+        <main
+          ref={container}
+          className="min-h-screen bg-white flex flex-col items-center justify-center relative overflow-hidden"
+        >
+          <Header />
+          <div className="relative flex flex-col items-center justify-center translate-y-[-10%]">
+            <div className="w-[270px] h-[270px] md:w-[482px] md:h-[482px]"></div>
             <Image
-              alt="Camera Icon"
-              width="136"
-              height="136"
-              className="w-[100px] h-[100px] md:w-[136px] md:h-[136px] animate-pulse"
-              src="/images/camera-icon.png"
+              alt="Diamond Large"
+              width="482"
+              height="482"
+              className="diamondLarge2 absolute"
+              src="/images/largeRectangle.png"
             />
-            <p className="text-xs md:text-sm font-semibold mt-8 tracking-widest text-[#1A1B1C] animate-pulse">
-              A.I. CAMERA IS INITIALIZING...
-            </p>
+            <Image
+              alt="Diamond Medium"
+              width="444"
+              height="444"
+              className="diamondMedium2 absolute"
+              src="/images/mediumRectangle.png"
+            />
+            <Image
+              alt="Diamond Small"
+              width="405"
+              height="405"
+              className="diamondSmall2 absolute"
+              src="/images/smallRectangle.png"
+            />
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              {/* Added animate-pulse here */}
+              <Image
+                alt="Camera Icon"
+                width="136"
+                height="136"
+                className="w-[100px] h-[100px] md:w-[136px] md:h-[136px] animate-pulse"
+                src="/images/camera-icon.png"
+              />
+              <p className="text-xs md:text-sm font-semibold mt-8 tracking-widest text-[#1A1B1C] animate-pulse">
+                A.I. CAMERA IS INITIALIZING...
+              </p>
+            </div>
           </div>
-        </div>
-      </main>
-    );
+        </main>
+      );
   }
 
   // ==========================================
@@ -559,7 +558,6 @@ const Results = () => {
             <div className="w-[270px] h-[270px] md:w-[482px] md:h-[482px]"></div>
             <Image
               alt="Diamond Large"
-              loading="lazy"
               width="484"
               height="484"
               decoding="async"
@@ -570,7 +568,6 @@ const Results = () => {
             />
             <Image
               alt="DiamondMedium"
-              loading="lazy"
               width="448"
               height="448"
               decoding="async"
@@ -581,7 +578,6 @@ const Results = () => {
             />
             <Image
               alt="DiamondSmall"
-              loading="lazy"
               width="408"
               height="408"
               decoding="async"
@@ -593,7 +589,6 @@ const Results = () => {
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <Image
                 alt="Photo Upload Icon"
-                loading="lazy"
                 width="136"
                 height="136"
                 decoding="async"
@@ -613,7 +608,6 @@ const Results = () => {
                 </p>
                 <Image
                   alt="Gallery Line"
-                  loading="lazy"
                   width="66"
                   height="59"
                   decoding="async"
@@ -656,7 +650,7 @@ const Results = () => {
         </div>
         <div className="pt-4 md:pt-0 pb-8 bg-white sticky md:static bottom-30.5 mb-0 md:mb-0">
           <div className="absolute bottom-8 w-full flex justify-between md:px-9 px-13">
-            <a className="relative" aria-label="Back" href="/testing">
+            <Link className="relative" aria-label="Back" href="/testing">
               <div>
                 <div className="relative w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
                   <span className="rotate-[-45deg] text-xs font-semibold sm:hidden">
@@ -673,8 +667,8 @@ const Results = () => {
                   </span>
                 </div>
               </div>
-            </a>
-            <a href="/select">
+            </Link>
+            <Link href="/select">
               <div className="hidden">
                 <div>
                   <div className=" w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
@@ -693,7 +687,7 @@ const Results = () => {
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
