@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Results = () => {
   const router = useRouter();
@@ -162,43 +163,12 @@ const Results = () => {
         console.log("Photo captured successfully!");
         setCapturedImage(imageData);
 
-        //   setIsUploading(true)
         // 4. Turn off the camera since we have the photo
         stopCamera();
 
         // 5. Next Step: Change the view to show the user their photo!
         setView("review");
 
-        // try {
-        //   // 4. Send to the API
-        //   const response = await fetch(
-        //     "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseTwo",
-        //     {
-        //       method: "POST",
-        //       headers: {
-        //         "Content-Type": "application/json",
-        //       },
-        //       // IMPORTANT: Check if your API expects the key to be "image", "file", or something else!
-        //       body: JSON.stringify({ "Image": imageData }),
-        //     },
-        //   );
-
-        //   if (!response.ok) {
-        //     throw new Error(`API Error: ${response.status}`);
-        //   }
-
-        //   const data = await response.json();
-        //   console.log("A.I. Analysis Complete:", data);
-
-        //   // 5. Success! Move to the final results view
-        //   // setView("results");
-        // } catch (error) {
-        //   console.error("Error uploading image:", error);
-        //   alert("There was an issue analyzing your photo. Please try again.");
-        //   // Optional: restart the camera so they can try again
-        // } finally {
-        //   setIsUploading(false); // Turn off the loading UI
-        // }
       }
     }
   };
@@ -446,7 +416,7 @@ const Results = () => {
               </div>
             </div>
             <div className="absolute md:bottom-8 bottom-60 left-8 z-20">
-              <a href="/results">
+              <Link href="/results">
                 <div>
                   <div className="relative w-12 h-12 flex items-center justify-center border border-[#FCFCFC] rotate-45 scale-[1] sm:hidden">
                     <span className="rotate-[-45deg] text-xs font-semibold sm:hidden text-[#FCFCFC]">
@@ -463,7 +433,7 @@ const Results = () => {
                     </span>
                   </div>
                 </div>
-              </a>
+              </Link>
             </div>
             <canvas className="hidden" width="1280" height="720"></canvas>
           </div>
@@ -477,7 +447,7 @@ const Results = () => {
   // ==========================================
 
   return (
-    <main ref={container}>
+    <main ref={container} className="overflow-hidden">
       <Header />
       <div className="min-h-[92vh] flex flex-col bg-white relative md:pt-[64px] justify-center">
         <div className="absolute top-2 left-9 md:left-8 text-left">
