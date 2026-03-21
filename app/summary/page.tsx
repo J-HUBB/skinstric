@@ -120,9 +120,9 @@ const Summary = () => {
   return (
     <>
       <Header />
-      <div className="h-screen md:h-[90vh] flex flex-col md:mt-5">
-        <main className="flex-1 w-full bg-white md:overflow-hidden overflow-auto">
-          <div className="md:h-full max-w-full mx-5 px-4 md:px-auto flex flex-col">
+      <div className="min-h-screen flex flex-col md:mt-5">
+        <main className="flex-1 w-full bg-white">
+          <div className="max-w-full mx-5 px-4 md:px-auto flex flex-col">
             <div className="text-start ml-4 mb-4 md:mb-10 md:ml-0">
               <h2 className="text-base md:text-base font-semibold mb-1 leading-[24px]">
                 A.I. ANALYSIS
@@ -134,7 +134,7 @@ const Summary = () => {
                 PREDICTED RACE &amp; AGE
               </h4>
             </div>
-            <div className="grid md:grid-cols-[1.5fr_8.5fr_3.15fr] gap-4 mt-10 mb-40 md:gap-4 pb-0 md:pb-0 md:mb-0">
+            <div className="grid md:grid-cols-[1.5fr_8.5fr_3.15fr] gap-4 mt-10 mb-10 md:mb-0">
               {/* LEFT COLUMN: Categories */}
               <div className="bg-white-100 space-y-3 md:flex md:flex-col h-[62%]">
                 {/* Race Box */}
@@ -181,7 +181,7 @@ const Summary = () => {
                     </span>
                   )}
                 </p>
-                <div className="relative md:absolute w-full max-w-[384px] aspect-square mb-4 md:right-5 md:bottom-2">
+                <div className="relative md:absolute w-full md:w-1/2 lg:w-1/3 max-w-[384px] aspect-square mb-4 md:right-5 md:bottom-2">
                   <div
                     style={{
                       width: "100%",
@@ -195,7 +195,7 @@ const Summary = () => {
                     <svg
                       className="CircularProgressbar text-[#1A1B1C]"
                       viewBox="0 0 100 100"
-                      data-test-id="CircularProgressbar"
+                    //   data-test-id="CircularProgressbar"
                     >
                       <path
                         className="CircularProgressbar-trail"
@@ -228,14 +228,13 @@ const Summary = () => {
                           strokeLinecap: "butt",
                           transitionDuration: "0.8s",
                           strokeDasharray: `${CIRCUMFERENCE}px, ${CIRCUMFERENCE}px`,
-                          //   strokeDashoffset: `${strokeDashoffset}px`,
                         }}
                       ></path>
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <p className="text-3xl md:text-[40px] font-normal">
                         {Math.round(confidenceScore)}
-                        <span className="absolute text-xl md:text-3xl">%</span>
+                        <span className="text-xl md:text-3xl">%</span>
                       </p>
                     </div>
                   </div>
@@ -299,7 +298,7 @@ const Summary = () => {
                 </div>
               </div>
             </div>
-            <div className="pt-4 md:pt-[37px] pb-6 bg-white sticky bottom-40 md:static md:bottom-0 mb-8 md:mb-16">
+            <div className="pt-10 pb-16 bg-white mt-auto">
               <div className="flex justify-between max-w-full mx-auto px-4 md:px-0">
                 <Link href="/select">
                   <div>
