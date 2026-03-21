@@ -114,7 +114,7 @@ const testing = () => {
   );
 
   return (
-    <main ref={container}>
+    <main ref={container} className="overflow-hidden">
       <Header />
       <div className="min-h-[90vh] flex flex-col items-center justify-center bg-white text-center">
         <div className="absolute top-16 left-9 text-left">
