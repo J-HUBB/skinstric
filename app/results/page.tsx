@@ -105,6 +105,10 @@ const Results = () => {
 
   useGSAP(
     () => {
+
+        // 1. Guard Clause: Only run if we are in a view that has diamonds
+      if (view !== "select" && view !== "loading") return;
+
       gsap.to(".diamondLarge2", {
         rotation: 360,
         duration: 55,
@@ -150,9 +154,9 @@ const Results = () => {
       const context = canvas.getContext("2d");
 
       if (context) {
-        // 1. Set canvas dimensions to match the actual video resolution
-        canvas.width = 640;
-        canvas.height = 480;
+        // 1. Set canvas dimensions to match the actual video feed dimensions
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
 
         // 2. Draw the current video frame onto the canvas
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -185,13 +189,13 @@ const Results = () => {
 
       // 2. Construct the exact payload
       const payload = {
-        Image: base64String,
+        // Image: base64String,
         image: base64String,
       };
 
       console.log("Sending payload. String length:", base64String.length);
 
-      // 3. Send to your endpoint
+      // 3. Send to endpoint
       const response = await fetch(
         "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseTwo",
         {
@@ -282,7 +286,7 @@ const Results = () => {
   // ==========================================
   if (view === "capture") {
     return (
-      <main className="min-h-screen bg-[#f4f5f7] flex flex-col relative">
+      <main ref={container} className="min-h-screen bg-[#f4f5f7] flex flex-col relative">
         <Header />
         <div className="h-[90vh] w-screen">
           <div className="relative h-[92vh] w-screen overflow-hidden bg-gray-900">
@@ -361,7 +365,7 @@ const Results = () => {
   // ==========================================
   if (view === "review") {
     return (
-      <main className="min-h-screen bg-[#f4f5f7] flex flex-col relative">
+      <main ref={container} className="min-h-screen bg-[#f4f5f7] flex flex-col relative">
         <Header />
         <div className="h-[90vh] w-screen">
           <div className="relative h-[92vh] w-screen overflow-hidden bg-gray-900">
